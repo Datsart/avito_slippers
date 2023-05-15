@@ -14,6 +14,7 @@ class Pattern(models.Model):
     def __str__(self):
         return self.pattern
 
+
 # class Size(models.Model):
 #     size =
 class TypeShoses(models.Model):

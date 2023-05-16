@@ -1,39 +1,38 @@
 from django.db import models
+from categories.models import SubCategory
 
 
 # Create your models here.
-
-
-class Pattern(models.Model):
-    pattern = models.CharField(max_length=50, verbose_name='Состояние')
+class Condition(models.Model):
+    title = models.CharField(max_length=50, verbose_name='Состояние')
 
     class Meta:
-        verbose_name = 'Состояние обуви'
-        verbose_name_plural = 'Состояния обуви'
+        verbose_name = 'Состояние'
+        verbose_name_plural = 'Состояния'
 
     def __str__(self):
-        return self.pattern
+        return self.title
 
 
-# class Size(models.Model):
-#     size =
-class TypeShoses(models.Model):
-    type = models.CharField(max_length=50, verbose_name='Тип обуви')
+class Size(models.Model):
+    size = models.IntegerField(verbose_name='Размер обуви')
 
     class Meta:
-        verbose_name = 'Тип обуви'
-        verbose_name_plural = 'Типы обуви'
+        verbose_name = 'Размер'
+        verbose_name_plural = 'Размеры'
 
     def __str__(self):
-        return self.type
+        return f'{self.size}'
 
 
 class Bb(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название товара')
     price = models.FloatField(null=False, blank=False, verbose_name='Цена')
-    adress = models.CharField(max_length=100, verbose_name='Адрес')
-    characteristics = models.ForeignKey(TypeShoses, null=True, blank=True, verbose_name='Тип обуви',
-                                        on_delete=models.CASCADE)
+    description = models.TextField(null=True, blank=True, verbose_name='Описание товара')
+    # characteristic = models.ForeignKey(Сharacteristic, on_delete=models.CASCADE, verbose_name='Характеристики обуви')
+    type_shoes = models.ForeignKey(SubCategory, on_delete=models.CASCADE, verbose_name='Тип обуви')
+    condition = models.ForeignKey(Condition, on_delete=models.CASCADE, verbose_name='Состояние обуви')
+    size = models.ForeignKey(Size, on_delete=models.CASCADE, verbose_name='Размер обуви')
 
     class Meta:
         verbose_name = 'Товар'
